@@ -11,7 +11,7 @@ The setup provides:
 - reproducible CMake build system
 - dependency management using vcpkg
 - useful for windows or linux systems programming and base testing
-                      BOOST MSG QUEUE (send, read, respond)
+                      BOOST MSG QUEUE (request, read, respond)
 - process_a (prod) --> a_to_b queue --> process_b (cons)
 - process_a (cons) <-- b_to_a queue <-- process_b (prod)
 - 
