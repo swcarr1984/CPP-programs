@@ -45,7 +45,7 @@ Now with the completed .cpp files ready for build –
 2. Create the .exe files run the below command in build directory ->
 >cmake --build . --config Debug
 
-3. To run executables (in this simple framework instance the a process is required to initialise first.
+3. To run executables (in this simple framework instance 'process_a' is required to initialise first.
 Either open direct from windows or via 2 separate terminal instances.
 
 Terminal 1 (full path shown)
