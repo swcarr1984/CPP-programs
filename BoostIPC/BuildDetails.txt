@@ -1,0 +1,62 @@
+Setting up VCPKG manager, adding Boost.InterProcess and creating dual-process base template.
+
+1. Clone the vcpkg repository
+(downloads the official vcpkg source from Microsoft)
+Within /dev folder (with git already installed):
+>git clone https://github.com/microsoft/vcpkg.git
+(this also mkdir’s the vcpkg folder)
+
+2. Run the vcpkg bootstrap script
+This builds the vcpkg executable for Windows.
+>cd vcpkg
+>bootstrap-vcpkg.bat
+After running, you will see a new file: vcpkg.exe
+This is the actual package manager
+
+3. Add vcpkg to your PATH (Allow to run vcpkg from any folder)
+Open System Properties → Environment Variables
+Add the full path to your vcpkg folder (e.g., C:\dev\vcpkg) to PATH
+Restart your terminal so PATH updates
+
+4. Integrate vcpkg with MSBuild and CMake
+This step makes Visual Studio and CMake automatically detect installed libraries.
+Within dev/vcpkg folder:
+>vcpkg integrate install
+
+5. Installing a library (In this case for Boost.Interprocess)
+This is how you install any C++ library using vcpkg.
+>vcpkg install boost-interprocess
+(vcpkg downloads, builds, and installs Boost)
+
+6. Configure vcpkg for project build
+Now redirect to the target project folder (has .cpp’s and CMake files)
+>mkdir build (within /dev/project_folder as above), then:
+>cd build
+
+7. Use vcpkg with CMake
+Tell CMake to use vcpkg’s toolchain file.
+>cmake -DCMAKE_TOOLCHAIN_FILE=C:/dev/vcpkg/scripts/buildsystems/vcpkg.cmake
+
+Configuration and Installation of Boost.InterProcess for windows IPC testing.
+
+1. Create CMakePresets.json file (Refer within BoostIPC) within the parent project folder to direct vcpkg build
+Now with the completed .cpp files ready for build –
+
+2. Create the .exe files run the below command in build directory ->
+>cmake --build . --config Debug
+
+3. To run executables (in this simple framework instance the a process is required to initialise first.
+Either open direct from windows or via 2 separate terminal instances.
+
+Terminal 1 (full path shown)
+C:\dev\CPP Development Code\Project_ControlSystem\WindowsProcessIPCpipes\build>cd debug
+C:\dev\CPP Development Code\Project_ControlSystem\WindowsProcessIPCpipes\build\Debug>process_a.exe
+
+Terminal 2 (full path shown)
+C:\dev\CPP Development Code\Project_ControlSystem\WindowsProcessIPCpipes\build>cd debug
+C:\dev\CPP Development Code\Project_ControlSystem\WindowsProcessIPCpipes\build\Debug>process_b.exe
+
+When developed into meaningful process/programs (run detached) – (program keeps running after terminal closes)
+Start-Process .\process_a.exe
+Start-Process .\process_b.exe
+
